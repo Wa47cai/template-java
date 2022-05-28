@@ -8,8 +8,11 @@ import lombok.Setter;
  * @date 2022/5/25
  */
 @Getter
-@Setter
 public class Car {
 
-    private String carNumber;
+    private final String carNumber;
+
+    public Car(String carNumber) {
+        this.carNumber = carNumber;
+    }
 }

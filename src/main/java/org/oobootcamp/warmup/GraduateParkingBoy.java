@@ -3,7 +3,7 @@ package org.oobootcamp.warmup;
 import org.oobootcamp.warmup.domain.Car;
 import org.oobootcamp.warmup.domain.Ticket;
 import org.oobootcamp.warmup.exception.AllParkingLotsFullException;
-import org.oobootcamp.warmup.exception.CarNotFoundInAllParkingLotsException;
+import org.oobootcamp.warmup.exception.InvalidTicketException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,11 @@ import java.util.List;
  */
 public class GraduateParkingBoy {
 
-    private final List<ParkingLot> orderedParkingLots = new ArrayList<>();
+    private final List<ParkingLot> orderedParkingLots;
+
+    public GraduateParkingBoy(List<ParkingLot> parkingLots) {
+        orderedParkingLots = parkingLots;
+    }
 
     public void addParkingLot(ParkingLot parkingLot) {
         orderedParkingLots.add(parkingLot);
@@ -22,7 +26,7 @@ public class GraduateParkingBoy {
 
     public Ticket park(Car car) {
         for (ParkingLot parkingLot : orderedParkingLots) {
-            if (!parkingLot.isParkingLotFull()) {
+            if (!parkingLot.isFull()) {
                 return parkingLot.park(car);
             }
         }
@@ -37,6 +41,6 @@ public class GraduateParkingBoy {
             }
         }
 
-        throw new CarNotFoundInAllParkingLotsException();
+        throw new InvalidTicketException();
     }
 }

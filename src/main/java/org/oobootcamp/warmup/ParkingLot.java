@@ -2,7 +2,7 @@ package org.oobootcamp.warmup;
 
 import org.oobootcamp.warmup.domain.Car;
 import org.oobootcamp.warmup.domain.Ticket;
-import org.oobootcamp.warmup.exception.CarNotFoundInParkingLotException;
+import org.oobootcamp.warmup.exception.InvalidTicketException;
 import org.oobootcamp.warmup.exception.ParkingLotFullException;
 
 import java.util.HashSet;
@@ -21,7 +21,7 @@ public class ParkingLot {
     }
 
     public Ticket park(Car car) {
-        if (isParkingLotFull()) {
+        if (isFull()) {
             throw new ParkingLotFullException();
         }
 
@@ -33,15 +33,14 @@ public class ParkingLot {
 
     public Car pickUp(Ticket ticket) {
         if (!parkedCarNumbers.contains(ticket.getCarNumber())) {
-            throw new CarNotFoundInParkingLotException();
+            throw new InvalidTicketException();
         }
-        Car car = new Car();
-        car.setCarNumber(ticket.getCarNumber());
+        Car car = new Car(ticket.getCarNumber());
         parkedCarNumbers.removeIf((parkedCarNumber) -> parkedCarNumber.equals(ticket.getCarNumber()));
         return car;
     }
 
-    public boolean isParkingLotFull() {
+    public boolean isFull() {
         return parkedCarNumbers.size() >= parkingSpaceCapacity;
     }
 
