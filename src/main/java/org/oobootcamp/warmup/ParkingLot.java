@@ -49,4 +49,8 @@ public class ParkingLot {
     public boolean isCarIn(Ticket ticket) {
         return parkedCars.stream().anyMatch(car -> car.getCarNumber().equals(ticket.getCarNumber()));
     }
+
+    public int getFreeSpaceCount() {
+        return parkingSpaceCapacity - parkedCars.size();
+    }
 }
