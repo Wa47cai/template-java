@@ -41,11 +41,11 @@ public class ParkingLotTest {
 
     @Test
     void should_succeed_to_pick_up_when_pick_up_given_one_ticket_and_car_exist_in_parking_lot() {
-        Car car = new Car("鄂A88888");
-        Ticket ticket = parkingLot.park(car);
+        Car exceptedCar = new Car("鄂A88888");
+        Ticket ticket = parkingLot.park(exceptedCar);
 
-        Car pickUpCar = parkingLot.pickUp(ticket);
-        assertThat(pickUpCar.getCarNumber()).isEqualTo(car.getCarNumber());
+        Car pickedUpCar = parkingLot.pickUp(ticket);
+        assertThat(pickedUpCar).isEqualTo(exceptedCar);
     }
 
     @Test

@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class ParkingLot {
     private final int parkingSpaceCapacity;
-    private final Set<String> parkedCarNumbers = new HashSet<>();
+    private final Set<Car> parkedCars = new HashSet<>();
 
     ParkingLot(int parkingSpaceCapacity) {
         this.parkingSpaceCapacity = parkingSpaceCapacity;
@@ -27,25 +27,26 @@ public class ParkingLot {
 
         Ticket ticket = new Ticket();
         ticket.setCarNumber(car.getCarNumber());
-        parkedCarNumbers.add(car.getCarNumber());
+        parkedCars.add(car);
         return ticket;
     }
 
     public Car pickUp(Ticket ticket) {
-        if (!parkedCarNumbers.contains(ticket.getCarNumber())) {
+        if (!isCarIn(ticket)) {
             throw new InvalidTicketException();
         }
-        Car car = new Car(ticket.getCarNumber());
-        parkedCarNumbers.removeIf((parkedCarNumber) -> parkedCarNumber.equals(ticket.getCarNumber()));
+        Car car = parkedCars.stream()
+                .filter(parkedCar -> parkedCar.getCarNumber().equals(ticket.getCarNumber()))
+                .findAny().get();
+        parkedCars.remove(car);
         return car;
     }
 
     public boolean isFull() {
-        return parkedCarNumbers.size() >= parkingSpaceCapacity;
+        return parkedCars.size() >= parkingSpaceCapacity;
     }
 
-
-    public boolean isCarIn(String carNumber) {
-        return parkedCarNumbers.contains(carNumber);
+    public boolean isCarIn(Ticket ticket) {
+        return parkedCars.stream().anyMatch(car -> car.getCarNumber().equals(ticket.getCarNumber()));
     }
 }

@@ -5,7 +5,6 @@ import org.oobootcamp.warmup.domain.Ticket;
 import org.oobootcamp.warmup.exception.AllParkingLotsFullException;
 import org.oobootcamp.warmup.exception.InvalidTicketException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,10 +19,6 @@ public class GraduateParkingBoy {
         orderedParkingLots = parkingLots;
     }
 
-    public void addParkingLot(ParkingLot parkingLot) {
-        orderedParkingLots.add(parkingLot);
-    }
-
     public Ticket park(Car car) {
         for (ParkingLot parkingLot : orderedParkingLots) {
             if (!parkingLot.isFull()) {
@@ -36,7 +31,7 @@ public class GraduateParkingBoy {
 
     public Car pickUp(Ticket ticket) {
         for (ParkingLot parkingLot : orderedParkingLots) {
-            if (parkingLot.isCarIn(ticket.getCarNumber())) {
+            if (parkingLot.isCarIn(ticket)) {
                 return parkingLot.pickUp(ticket);
             }
         }

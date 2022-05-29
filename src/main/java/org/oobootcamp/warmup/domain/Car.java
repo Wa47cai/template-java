@@ -1,7 +1,8 @@
 package org.oobootcamp.warmup.domain;
 
 import lombok.Getter;
-import lombok.Setter;
+
+import java.util.Objects;
 
 /**
  * @author Super Idol Pair B
@@ -14,5 +15,21 @@ public class Car {
 
     public Car(String carNumber) {
         this.carNumber = carNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Car car)) {
+            return false;
+        }
+        return Objects.equals(getCarNumber(), car.getCarNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCarNumber());
     }
 }

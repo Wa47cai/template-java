@@ -30,11 +30,11 @@ public class GraduateParkingBoyTest {
 
     @Test
     void should_park_to_first_not_full_parking_lot_when_park_car_given_one_car_and_all_ordered_parking_lots_not_full() {
-        Car car1 = new Car("鄂A88888");
+        Car expectedCar = new Car("鄂A88888");
 
-        Ticket car1Ticket = graduateParkingBoy.park(car1);
-        assertThat(car1Ticket.getCarNumber()).isEqualTo(car1.getCarNumber());
-        assertThat(parkingLot1.pickUp(car1Ticket).getCarNumber()).isEqualTo(car1.getCarNumber());
+        Ticket ticket = graduateParkingBoy.park(expectedCar);
+        assertThat(ticket.getCarNumber()).isEqualTo(expectedCar.getCarNumber());
+        assertThat(parkingLot1.pickUp(ticket)).isEqualTo(expectedCar);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class GraduateParkingBoyTest {
         Car car2 = new Car("鄂A66666");
         Ticket car2Ticket = graduateParkingBoy.park(car2);
         assertThat(car2Ticket.getCarNumber()).isEqualTo(car2.getCarNumber());
-        assertThat(parkingLot2.pickUp(car2Ticket).getCarNumber()).isEqualTo(car2.getCarNumber());
+        assertThat(parkingLot2.pickUp(car2Ticket)).isEqualTo(car2);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class GraduateParkingBoyTest {
         Ticket ticket = graduateParkingBoy.park(expectedCar);
 
         Car pickedUpCar = graduateParkingBoy.pickUp(ticket);
-        assertThat(pickedUpCar.getCarNumber()).isEqualTo(expectedCar.getCarNumber());
+        assertThat(pickedUpCar).isEqualTo(expectedCar);
     }
 
     @Test
