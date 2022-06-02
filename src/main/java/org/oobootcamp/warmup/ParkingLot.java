@@ -12,7 +12,7 @@ import java.util.Set;
  * @author Super Idol Pair B
  * @date 2022/5/25
  */
-public class ParkingLot {
+public class ParkingLot implements Parkable {
     private final int parkingSpaceCapacity;
     private final Set<Car> parkedCars = new HashSet<>();
 
@@ -20,6 +20,7 @@ public class ParkingLot {
         this.parkingSpaceCapacity = parkingSpaceCapacity;
     }
 
+    @Override
     public Ticket park(Car car) {
         if (isFull()) {
             throw new ParkingLotFullException();
@@ -31,6 +32,7 @@ public class ParkingLot {
         return ticket;
     }
 
+    @Override
     public Car pickUp(Ticket ticket) {
         if (!isCarIn(ticket)) {
             throw new InvalidTicketException();
@@ -42,10 +44,12 @@ public class ParkingLot {
         return car;
     }
 
+    @Override
     public boolean isFull() {
         return parkedCars.size() >= parkingSpaceCapacity;
     }
 
+    @Override
     public boolean isCarIn(Ticket ticket) {
         return parkedCars.stream().anyMatch(car -> car.getCarNumber().equals(ticket.getCarNumber()));
     }
