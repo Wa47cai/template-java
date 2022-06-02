@@ -11,14 +11,12 @@ import java.util.List;
  * @author Super Idol Pair B
  * @date 2022/5/27
  */
-public class GraduateParkingBoy {
-
-    private final List<ParkingLot> orderedParkingLots;
-
-    public GraduateParkingBoy(List<ParkingLot> parkingLots) {
-        orderedParkingLots = parkingLots;
+public class GraduateParkingBoy extends ParkingBoy {
+    public GraduateParkingBoy(List<ParkingLot> orderedParkingLots) {
+        super(orderedParkingLots);
     }
 
+    @Override
     public Ticket park(Car car) {
         for (ParkingLot parkingLot : orderedParkingLots) {
             if (!parkingLot.isFull()) {
@@ -27,15 +25,5 @@ public class GraduateParkingBoy {
         }
 
         throw new AllParkingLotsFullException();
-    }
-
-    public Car pickUp(Ticket ticket) {
-        for (ParkingLot parkingLot : orderedParkingLots) {
-            if (parkingLot.isCarIn(ticket)) {
-                return parkingLot.pickUp(ticket);
-            }
-        }
-
-        throw new InvalidTicketException();
     }
 }

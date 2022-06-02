@@ -1,6 +1,5 @@
 package org.oobootcamp.warmup;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.oobootcamp.warmup.domain.Car;
 import org.oobootcamp.warmup.domain.Ticket;
